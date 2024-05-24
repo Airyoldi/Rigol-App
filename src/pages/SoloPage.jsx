@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useSound from "use-sound";
 import data from "../data";
 import "./SoloPage.css";
 import { FaCirclePlay } from "react-icons/fa6";
@@ -10,14 +9,20 @@ function SoloPage() {
   const [changeButton, setChangeButton] = useState(false);
   const [soundIndex, setSoundIndex] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [playSound] = useSound(data[soundIndex].sound);
+ 
+
+  let audio = new Audio(data[soundIndex].sound)
+  const start = () => {
+    audio.play()
+  }
+
 
   const navigate = useNavigate();
 
   const handleChange = () => {
     setChangeButton(true);
     setSoundIndex(soundIndex + 1);
-    playSound();
+    start();
   };
   if (soundIndex >= data.length - 1) {
     navigate("/finish");
